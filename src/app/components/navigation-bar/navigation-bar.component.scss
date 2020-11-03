@@ -1,0 +1,14 @@
+$color-primary: #b2cced;
+$color-white: #FFFFFF;
+$color-black: #000000;
+
+nav {
+    background-color: $color-primary;
+    color: $color-black;
+    #navbarSupportedContent ul li a{
+        color: $color-white;
+    }
+    button span {
+        color: $color-black;
+    }
+}
