@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            {{cityName}}
+            <p>pridobljeno {{date | date:'dd.MM.yyyy'}}</p>
+        </div>
+    </div>
+    <div class="row text-center">
+            <div class="col-md-6">
+                <div class="col-md-6">
+                    <img src="http://openweathermap.org/img/w/{{weatherIcon}}.png" height="100" width="100">
+                </div>
+                <div class="col-md-6">
+                    <div class="col">
+                        <label>Current temperature: {{currentTemperature}}</label>
+                    </div>
+                    <div class="col">
+                        <label>Max. Temperature: {{maxTemperature}}</label>
+                    </div>
+                    <div class="col">
+                        <label>Min. Temperature: {{minTemperature}}</label>
+                    </div>
+                    <div class="col">
+                        <label>Feels like: {{feelsLikeTemperature}}</label>
+                    </div>
+                    <div class="col">
+                        <label>Humidity: {{currentHumidity}}%</label>
+                    </div>
+                    <div class="col">
+                        <label>Atmospheric pressure: {{currentPressure}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"> 
+                tuka vreme za 5 dena/ lista
+            </div>
+    </div>
+    <div class="row text-center">
+        <div class="col">
+            <button class="btn btn-small btn-primary">Refresh</button>
+        </div>
+    </div>
+</div>
