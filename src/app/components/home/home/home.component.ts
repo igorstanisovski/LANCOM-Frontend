@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { LocationService } from 'src/app/services/location.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,15 @@ export class HomeComponent implements OnInit {
   lat: number;
   forecast: any[] = [];
   dataIsAvailable: boolean = false;
+  iconsForecast: any[] = [];
+  forecastDates: any[] = [];
 
   constructor(private weatherService: WeatherService, private route:ActivatedRoute, private router:Router, private locationService:LocationService) { }
 
   ngOnInit(): void {
     if(!this.dataIsAvailable){
       this.currentWeather = JSON.parse(localStorage.getItem('currentWeather'));
+      this.iconsForecast = JSON.parse(localStorage.getItem('iconsForecast'));
       this.dataIsAvailable = true;
     }
     this.getCurrentWeatherByName();
@@ -40,7 +44,9 @@ export class HomeComponent implements OnInit {
           "feelsLike": Math.floor(res['main']['feels_like'] - 273.15),
           "humidity": res['main']['humidity'],
           "pressure": res['main']['pressure'],
-          "icon": res['weather'][0]['icon']
+          "icon": res['weather'][0]['icon'],
+          "clouds": res['clouds']['all'],
+          "wind": res['wind']['speed']
         };
         localStorage.setItem('currentWeather',JSON.stringify(this.currentWeather));
       },
@@ -53,9 +59,13 @@ export class HomeComponent implements OnInit {
         console.log(res);
         for(var i = 0;i < 5;i++){
           this.forecast.push(res['daily'][i]);
+          this.iconsForecast.push(res['daily'][i]['weather'][0]['icon']);
+          let date= new Date();
+          this.forecastDates.push(date.setDate(date.getDate() + 1+ i));
         }
         //this.dataIsAvailable = true;
         localStorage.setItem('forecast',JSON.stringify(this.forecast));
+        localStorage.setItem('iconsForecast',JSON.stringify(this.iconsForecast));
       },
       err => { console.log(err) }
     )
