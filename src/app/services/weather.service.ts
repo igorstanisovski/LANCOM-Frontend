@@ -18,10 +18,10 @@ export class WeatherService {
     );
   }
 
-  getWeatherForUpcomingDays(cityName: string): Observable<string> {
-    return this.http.get<string>(environment.API+"/forecast/daily?q="+cityName+"&cnt=5&APPID="+environment.apiKey)
+  getWeatherByLocation(lon: any,lat:any): Observable<string> {
+    return this.http.get<string>(environment.API+'/onecall?lat='+lat+'&lon='+lon+'&exclude=hourly,minutely&APPID='+environment.apiKey)
     .pipe(
-      tap(_ => console.log("fetched forecast data"))
+      tap(_ => console.log("fetched location data"))
     );
   }
 }

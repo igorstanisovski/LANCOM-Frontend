@@ -21,20 +21,19 @@ export class HomeComponent implements OnInit {
   weatherIcon: string;
   lon: number;
   lat: number;
+  forecast: any[] = [];
 
   constructor(private weatherService: WeatherService, private route:ActivatedRoute, private router:Router, private locationService:LocationService) { }
 
   ngOnInit(): void {
+    this.getCurrentWeatherByName();
     this.getLocation();
-    this.getCurrentWeather();
-    this.getForecast();
   }
 
-  async getCurrentWeather() {
+  async getCurrentWeatherByName() {
     await this.weatherService.getCurrentWeather("maribor").subscribe(
       res => { 
         console.log(res);
-        this.dataIsAvailable = true;
         this.cityName = res['name'];
         this.date = new Date;
         this.currentTemperature = Math.floor(res['main']['temp'] - 273.15);
@@ -44,16 +43,18 @@ export class HomeComponent implements OnInit {
         this.currentHumidity = res['main']['humidity'];
         this.currentPressure = res['main']['pressure'];
         this.weatherIcon = res['weather'][0]['icon'];
-
-
       },
       err => { console.log(err) }
     )
   }
-  async getForecast() {
-    await this.weatherService.getWeatherForUpcomingDays("maribor").subscribe(
+  async getWeatherByLocation(lon: any, lat: any) {
+    await this.weatherService.getWeatherByLocation(lon,lat).subscribe(
       res => { 
-
+        console.log(res);
+        for(var i = 0;i < 5;i++){
+          this.forecast.push(res['daily'][i]);
+        }
+        this.dataIsAvailable = true;
       },
       err => { console.log(err) }
     )
@@ -61,9 +62,7 @@ export class HomeComponent implements OnInit {
 
   async getLocation() {
     await this.locationService.getPosition().then(pos => {
-      console.log(`Positon: ${pos.lon} ${pos.lat}`);
-      this.lat = pos.lat;
-      this.lon = pos.lon;
+      this.getWeatherByLocation(pos.lon,pos.lat);
     })
   }
 }
