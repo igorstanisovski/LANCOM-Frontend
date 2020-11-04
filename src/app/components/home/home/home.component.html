@@ -1,33 +1,33 @@
-<div class="container" *ngIf="dataIsAvailable">
+<div class="container">
     <div class="row text-center">
         <div class="col">
-            {{cityName}}
-            <p><ng-container i18n="Obtained@@obtained">obtained</ng-container> {{date | date:'dd.MM.yyyy HH:mm:ss'}}</p>
+            {{currentWeather.city}}
+            <p><ng-container i18n="Obtained@@obtained">obtained</ng-container> {{currentWeather.date | date:'dd.MM.yyyy HH:mm:ss'}}</p>
         </div>
     </div>
     <div class="row text-center">
             <div class="col-md-6">
                 <div class="col-md-6">
-                    <img src="http://openweathermap.org/img/w/{{weatherIcon}}.png" height="100" width="100">
+                    <img src="http://openweathermap.org/img/w/{{currentWeather.icon}}.png" height="100" width="100">
                 </div>
                 <div class="col-md-6">
                     <div class="col">
-                        <label><ng-container i18n="Current temperature@@currentTemperature">Current temperature: </ng-container> {{currentTemperature}}<span>&#8451;</span></label>
+                        <label><ng-container i18n="Current temperature@@currentTemperature">Current temperature: </ng-container> {{currentWeather.temperature}}<span>&#8451;</span></label>
                     </div>
                     <div class="col">
-                        <label><ng-container i18n="Max temperature@@maxTemperature">Max. Temperature: </ng-container> {{maxTemperature}}<span>&#8451;</span></label>
+                        <label><ng-container i18n="Max temperature@@maxTemperature">Max. Temperature: </ng-container> {{currentWeather.maxTemperature}}<span>&#8451;</span></label>
                     </div>
                     <div class="col">
-                        <label><ng-container i18n="Min temperature@@minTemperature">Min. Temperature: </ng-container> {{minTemperature}}<span>&#8451;</span></label>
+                        <label><ng-container i18n="Min temperature@@minTemperature">Min. Temperature: </ng-container> {{currentWeather.minTemperature}}<span>&#8451;</span></label>
                     </div>
                     <div class="col">
-                        <label><ng-container i18n="Feels Like@@feelsLike">Feels like: </ng-container> {{feelsLikeTemperature}}<span>&#8451;</span></label>
+                        <label><ng-container i18n="Feels Like@@feelsLike">Feels like: </ng-container> {{currentWeather.feelsLike}}<span>&#8451;</span></label>
                     </div>
                     <div class="col">
-                        <label><ng-container i18n="Humidity@@humidity">Humidity: </ng-container> {{currentHumidity}}%</label>
+                        <label><ng-container i18n="Humidity@@humidity">Humidity: </ng-container> {{currentWeather.humidity}}%</label>
                     </div>
                     <div class="col">
-                        <label><ng-container i18n="Atmospheric pressure@@atmospherisPressure">Atmospheric pressure: </ng-container> {{currentPressure}}</label>
+                        <label><ng-container i18n="Atmospheric pressure@@atmospherisPressure">Atmospheric pressure: </ng-container> {{currentWeather.pressure}}</label>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,4 @@
             <button class="btn btn-small btn-primary" (click)="Refresh()"><ng-container i18n="Refresh@@refresh">Refresh </ng-container></button>
         </div>
     </div>
-</div>
-<div class="container" *ngIf="!dataIsAvailable" >
-    <ng-container i18n="Loading@@loading">Loading...</ng-container>
 </div>
