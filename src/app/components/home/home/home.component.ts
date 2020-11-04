@@ -13,13 +13,18 @@ export class HomeComponent implements OnInit {
   lon: number;
   lat: number;
   forecast: any[] = [];
+  dataIsAvailable: boolean = false;
 
   constructor(private weatherService: WeatherService, private route:ActivatedRoute, private router:Router, private locationService:LocationService) { }
 
   ngOnInit(): void {
-    this.currentWeather = JSON.parse(localStorage.getItem('currentWeather'));
+    if(!this.dataIsAvailable){
+      this.currentWeather = JSON.parse(localStorage.getItem('currentWeather'));
+      this.dataIsAvailable = true;
+    }
     this.getCurrentWeatherByName();
     this.getLocation();
+    this.dataIsAvailable = true;
   }
 
   async getCurrentWeatherByName() {

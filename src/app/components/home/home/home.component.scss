@@ -1,0 +1,20 @@
+$color-primary: #b2cced;
+$color-grey: #d3d3d3;
+
+.weather-icon {
+    background-color: pink;
+}
+.currentTemperature {
+    background-color: $color-primary;
+}
+.card {
+    background-color: $color-grey;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    > div {
+        flex: 50%;
+        margin: 3px;
+    }
+}
