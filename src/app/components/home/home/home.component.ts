@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
 import { Router,ActivatedRoute } from '@angular/router';
+import { LocationService } from 'src/app/services/location.service';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +19,13 @@ export class HomeComponent implements OnInit {
   currentPressure: number;
   dataIsAvailable: boolean = false;
   weatherIcon: string;
+  lon: number;
+  lat: number;
 
-  constructor(private weatherService: WeatherService, private route:ActivatedRoute, private router:Router) { }
+  constructor(private weatherService: WeatherService, private route:ActivatedRoute, private router:Router, private locationService:LocationService) { }
 
   ngOnInit(): void {
+    this.getLocation();
     this.getCurrentWeather();
     this.getForecast();
   }
@@ -53,5 +57,13 @@ export class HomeComponent implements OnInit {
       },
       err => { console.log(err) }
     )
+  }
+
+  async getLocation() {
+    await this.locationService.getPosition().then(pos => {
+      console.log(`Positon: ${pos.lon} ${pos.lat}`);
+      this.lat = pos.lat;
+      this.lon = pos.lon;
+    })
   }
 }
