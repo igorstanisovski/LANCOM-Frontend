@@ -2,7 +2,7 @@
     <div class="row text-center">
         <div class="col">
             {{cityName}}
-            <p>pridobljeno {{date | date:'dd.MM.yyyy'}}</p>
+            <p><ng-container i18n="Obtained@@obtained">obtained</ng-container> {{date | date:'dd.MM.yyyy HH:mm:ss'}}</p>
         </div>
     </div>
     <div class="row text-center">
@@ -12,39 +12,39 @@
                 </div>
                 <div class="col-md-6">
                     <div class="col">
-                        <label>Current temperature: {{currentTemperature}}<span>&#8451;</span></label>
+                        <label><ng-container i18n="Current temperature@@currentTemperature">Current temperature: </ng-container> {{currentTemperature}}<span>&#8451;</span></label>
                     </div>
                     <div class="col">
-                        <label>Max. Temperature: {{maxTemperature}}<span>&#8451;</span></label>
+                        <label><ng-container i18n="Max temperature@@maxTemperature">Max. Temperature: </ng-container> {{maxTemperature}}<span>&#8451;</span></label>
                     </div>
                     <div class="col">
-                        <label>Min. Temperature: {{minTemperature}}<span>&#8451;</span></label>
+                        <label><ng-container i18n="Min temperature@@minTemperature">Min. Temperature: </ng-container> {{minTemperature}}<span>&#8451;</span></label>
                     </div>
                     <div class="col">
-                        <label>Feels like: {{feelsLikeTemperature}}<span>&#8451;</span></label>
+                        <label><ng-container i18n="Feels Like@@feelsLike">Feels like: </ng-container> {{feelsLikeTemperature}}<span>&#8451;</span></label>
                     </div>
                     <div class="col">
-                        <label>Humidity: {{currentHumidity}}%</label>
+                        <label><ng-container i18n="Humidity@@humidity">Humidity: </ng-container> {{currentHumidity}}%</label>
                     </div>
                     <div class="col">
-                        <label>Atmospheric pressure: {{currentPressure}}</label>
+                        <label><ng-container i18n="Atmospheric pressure@@atmospherisPressure">Atmospheric pressure: </ng-container> {{currentPressure}}</label>
                     </div>
                 </div>
             </div>
             <div class="col-md-6"> 
                 <div class="row" *ngFor="let day of forecast">
-                    <label>Daily temp:{{day.temp.day - 273.15 | number:'1.0-0'}}<span>&#8451;</span></label>
-                    <label>Max temp:{{day.temp.max - 273.15 | number:'1.0-0'}}<span>&#8451;</span></label>
-                    <label>Min temp:{{day.temp.min - 273.15 | number:'1.0-0'}}<span>&#8451;</span></label>
+                    <label><ng-container i18n="Daily temperature@@dailyTemperature">Daily Temperature: </ng-container>{{day.temp.day - 273.15 | number:'1.0-0'}}<span>&#8451;</span></label>
+                    <label><ng-container i18n="Max temperature@@maxTemperature">Max. Temperature: </ng-container>{{day.temp.max - 273.15 | number:'1.0-0'}}<span>&#8451;</span></label>
+                    <label><ng-container i18n="Min temperature@@minTemperature">Min. Temperature: </ng-container>{{day.temp.min - 273.15 | number:'1.0-0'}}<span>&#8451;</span></label>
                 </div>
             </div>
     </div>
     <div class="row text-center">
         <div class="col">
-            <button class="btn btn-small btn-primary">Refresh</button>
+            <button class="btn btn-small btn-primary" (click)="Refresh()"><ng-container i18n="Refresh@@refresh">Refresh </ng-container></button>
         </div>
     </div>
 </div>
-<div class="container" *ngIf="!dataIsAvailable">
-    Loading...
+<div class="container" *ngIf="!dataIsAvailable" >
+    <ng-container i18n="Loading@@loading">Loading...</ng-container>
 </div>

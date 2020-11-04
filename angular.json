@@ -13,6 +13,12 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "si": "locale/messages.si.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -61,6 +67,12 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "si": {
+              "aot": true,
+              "outputPath": "dist/Weather",
+              "i18nMissingTranslation": "error",
+              "localize": ["si"]
             }
           }
         },
@@ -72,6 +84,9 @@
           "configurations": {
             "production": {
               "browserTarget": "Weather:build:production"
+            },
+            "si": {
+              "browserTarget": "Weather:build:si"
             }
           }
         },

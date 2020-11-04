@@ -63,6 +63,15 @@ export class HomeComponent implements OnInit {
   async getLocation() {
     await this.locationService.getPosition().then(pos => {
       this.getWeatherByLocation(pos.lon,pos.lat);
+      this.lat = pos.lat;
+      this.lon = pos.lon;
     })
+  }
+
+  async Refresh() {
+    this.dataIsAvailable = false;
+    await this.getCurrentWeatherByName();
+    this.forecast = [];
+    await this.getWeatherByLocation(this.lon,this.lat);
   }
 }
