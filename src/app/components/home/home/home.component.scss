@@ -24,3 +24,9 @@ $color-grey: #d3d3d3;
 .primary {
     color: $color-primary;
 }
+
+@media only screen and (max-width: 768px) { 
+    .mar {
+        margin-bottom: 10px;
+    }
+}
