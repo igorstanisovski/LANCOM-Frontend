@@ -13,7 +13,7 @@
         <div class="col-md-6 mb-4">
             <mat-card-class class="mat-elevation-z5 card">
                 <mat-card-header>
-                    <mat-card-title>Today's weather</mat-card-title>
+                    <mat-card-title><ng-container i18n="Todays weather@@todaysWeather">Today's weather</ng-container></mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                     <div class="flex-row">
@@ -24,13 +24,13 @@
                             <div class="col">
                                 <span class="h1">{{weatherByLocation.currentWeather.temperature}}&#8451;</span>
                             </div>
-                            <small>Feels like: {{weatherByLocation.currentWeather.feelsLike}}&#8451;</small>
+                            <small><ng-container i18n="Feels like@@feelsLike">Feels like</ng-container>: {{weatherByLocation.currentWeather.feelsLike}}&#8451;</small>
                         </div>
                     </div>
                     <div class="flex-row">
                         <div>
-                            <p class="h6"><ng-container i18n="Max temperature@@maxTemperature">Max: </ng-container> {{weatherByLocation.currentWeather.maxTemperature}}<span>&#8451;</span></p>
-                            <p class="h6"><ng-container i18n="Min temperature@@minTemperature">Min:</ng-container> {{weatherByLocation.currentWeather.minTemperature}}<span>&#8451;</span></p>
+                            <p class="h6"><ng-container i18n="Max temperature@@maxTemperature">Max</ng-container>: {{weatherByLocation.currentWeather.maxTemperature}}<span>&#8451;</span></p>
+                            <p class="h6"><ng-container i18n="Min temperature@@minTemperature">Min</ng-container>: {{weatherByLocation.currentWeather.minTemperature}}<span>&#8451;</span></p>
                             <p class="h6"><ng-container i18n="Clouds@@clouds">Clouds:</ng-container> {{weatherByLocation.currentWeather.clouds}}%</p>
                         </div>
                         <div>
@@ -46,7 +46,7 @@
             <mat-card-class class="mat-elevation-z5 card">
                 <mat-card-header>
                     <mat-card-title>
-                        Forecast
+                        <ng-container i18n="Forecast@@forecast">Forecast</ng-container> 
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -59,15 +59,15 @@
                                 <img src="http://openweathermap.org/img/w/{{weatherByLocation.iconsForecast[i]}}.png" height="40" width="40">
                             </div>
                             <div class="col-2">
-                                <small class="text-muted">Min</small>
+                                <small class="text-muted"><ng-container i18n="Min temperature@@minTemperature">Min</ng-container></small>
                                 <p class="h6">{{day.temp.min - 273.15 | number:'1.0-0'}}<span>&#8451;</span></p>
                             </div>
                             <div class="col-3">
-                                <small class="text-muted">Daily</small>
+                                <small class="text-muted"><ng-container i18n="daily@@daily">Daily</ng-container></small>
                                 <p class="h5">{{day.temp.day - 273.15 | number:'1.0-0'}}<span>&#8451;</span></p>
                             </div>
                             <div class="col-2">
-                                <small class="text-muted">Max</small>
+                                <small class="text-muted"><ng-container i18n="Max temperature@@maxTemperature">Max</ng-container></small>
                                 <p class="h6">{{day.temp.max - 273.15 | number:'1.0-0'}}<span>&#8451;</span></p>
                             </div>
                         </div>
