@@ -53,7 +53,7 @@
                     <div class="col">
                         <div *ngFor="let day of weatherByName.forecast; let i = index" class="row m-1 align-items-center forecast rounded">
                             <div class="col-3">
-                                <p class="h6">{{weatherByName.forecastDates[i] | date:'EEEE'}}</p>
+                                <p class="h6">{{day.dt*1000 | date:'EEEE'}}</p>
                             </div>
                             <div class="col-2">
                                 <img src="http://openweathermap.org/img/w/{{weatherByName.iconsForecast[i]}}.png" height="40" width="40">

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { LocationService } from 'src/app/services/location.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +34,7 @@ export class HomeComponent implements OnInit {
         //console.log(res);
         this.currentWeather = {
           "city": res['name'],
-          "date": new Date,
+          "date": new Date(res['dt']*1000),
           "temperature": Math.floor(res['main']['temp'] - 273.15),
           "maxTemperature": Math.floor(res['main']['temp_max'] - 273.15),
           "minTemperature": Math.floor(res['main']['temp_min'] - 273.15),
@@ -67,21 +66,14 @@ export class HomeComponent implements OnInit {
         //console.log(res);
         var forecast = [];
         var iconsForecast = [];
-        var forecastDates = [];
-        for(var i = 0;i < 5;i++){
+        for(var i = 1;i <= 5;i++){
           forecast.push(res['daily'][i]);
           iconsForecast.push(res['daily'][i]['weather'][0]['icon']);
-          let date= new Date();
-          forecastDates.push(date.setDate(date.getDate() + 1+ i));
         }
-        //this.dataIsAvailable = true;
-        //localStorage.setItem('forecast',JSON.stringify(this.forecast));
-        //localStorage.setItem('iconsForecast',JSON.stringify(this.iconsForecast));
         this.weatherByName = {
           "currentWeather": this.currentWeather,
           "forecast": forecast,
           "iconsForecast": iconsForecast,
-          "forecastDates": forecastDates
         };
         localStorage.setItem('weatherByName',JSON.stringify(this.weatherByName));
         this.dataIsAvailable = true;

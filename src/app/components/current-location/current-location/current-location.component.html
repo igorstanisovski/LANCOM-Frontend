@@ -1,1 +1,84 @@
-<p>current-location works!</p>
+<div class="container" *ngIf="!dataIsAvailable">
+    <ng-container i18n="Loading@@loading">Loading... </ng-container>
+</div>
+
+<div class="container text-center p-3" *ngIf="dataIsAvailable">
+    <div class="row justify-content-center">
+        <div class="col-6" >
+            <p class="h3"><span><b>{{weatherByLocation.timezone}}</b></span></p>
+            <p class="font-weight-bold"><ng-container i18n="Obtained@@obtained">obtained</ng-container> <span class="primary"> {{weatherByLocation.currentWeather.date | date:'dd.MM.yyyy HH:mm:ss'}}</span></p>
+        </div>
+    </div>
+    <div class="row justify-content-center p-2">
+        <div class="col-md-6 mb-4">
+            <mat-card-class class="mat-elevation-z5 card">
+                <mat-card-header>
+                    <mat-card-title>Today's weather</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="flex-row">
+                        <div class="weather-icon rounded">
+                            <img src="http://openweathermap.org/img/w/{{weatherByLocation.currentWeather.icon}}.png" height="70" width="70">
+                        </div>  
+                        <div class="currentTemperature rounded">
+                            <div class="col">
+                                <span class="h1">{{weatherByLocation.currentWeather.temperature}}&#8451;</span>
+                            </div>
+                            <small>Feels like: {{weatherByLocation.currentWeather.feelsLike}}&#8451;</small>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <div>
+                            <p class="h6"><ng-container i18n="Max temperature@@maxTemperature">Max: </ng-container> {{weatherByLocation.currentWeather.maxTemperature}}<span>&#8451;</span></p>
+                            <p class="h6"><ng-container i18n="Min temperature@@minTemperature">Min:</ng-container> {{weatherByLocation.currentWeather.minTemperature}}<span>&#8451;</span></p>
+                            <p class="h6"><ng-container i18n="Clouds@@clouds">Clouds:</ng-container> {{weatherByLocation.currentWeather.clouds}}%</p>
+                        </div>
+                        <div>
+                            <p class="h6"><ng-container i18n="Humidity@@humidity">Humidity: </ng-container> {{weatherByLocation.currentWeather.humidity}}%</p>
+                            <p class="h6"><ng-container i18n="Atmospheric pressure@@atmospherisPressure">Atmospheric pressure: </ng-container> {{weatherByLocation.currentWeather.pressure}} <small>hPa</small></p>
+                            <p class="h6"><ng-container i18n="Wind@@wind">Wind speed: </ng-container> {{weatherByLocation.currentWeather.wind}}<small><i>km/h</i></small></p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card-class>
+        </div>
+        <div class="col-md-6">  
+            <mat-card-class class="mat-elevation-z5 card">
+                <mat-card-header>
+                    <mat-card-title>
+                        Forecast
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="col">
+                        <div *ngFor="let day of weatherByLocation.forecast; let i = index" class="row m-1 align-items-center forecast rounded">
+                            <div class="col-3">
+                                <p class="h6">{{day.dt*1000 | date:'EEEE'}}</p>
+                            </div>
+                            <div class="col-2">
+                                <img src="http://openweathermap.org/img/w/{{weatherByLocation.iconsForecast[i]}}.png" height="40" width="40">
+                            </div>
+                            <div class="col-2">
+                                <small class="text-muted">Min</small>
+                                <p class="h6">{{day.temp.min - 273.15 | number:'1.0-0'}}<span>&#8451;</span></p>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-muted">Daily</small>
+                                <p class="h5">{{day.temp.day - 273.15 | number:'1.0-0'}}<span>&#8451;</span></p>
+                            </div>
+                            <div class="col-2">
+                                <small class="text-muted">Max</small>
+                                <p class="h6">{{day.temp.max - 273.15 | number:'1.0-0'}}<span>&#8451;</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card-class>
+        </div>
+        <div class="row text-center m-5">
+            <div class="col">
+                <button class="btn btn-md btn-primary" (click)="Refresh()"><ng-container i18n="Refresh@@refresh">Refresh </ng-container></button>
+            </div>
+        </div>
+    </div>
+</div>
