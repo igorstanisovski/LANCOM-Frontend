@@ -10,31 +10,29 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  weatherByName: any = {};
   currentWeather: any = {};
   lon: number;
   lat: number;
-  forecast: any[] = [];
   dataIsAvailable: boolean = false;
-  iconsForecast: any[] = [];
-  forecastDates: any[] = [];
 
   constructor(private weatherService: WeatherService, private route:ActivatedRoute, private router:Router, private locationService:LocationService) { }
 
   ngOnInit(): void {
     if(!this.dataIsAvailable){
-      this.currentWeather = JSON.parse(localStorage.getItem('currentWeather'));
-      this.iconsForecast = JSON.parse(localStorage.getItem('iconsForecast'));
-      this.dataIsAvailable = true;
+      this.weatherByName = JSON.parse(localStorage.getItem('weatherByName'));
+      if(this.weatherByName != null || this.weatherByName != undefined){
+        this.dataIsAvailable = true;
+      }
     }
     this.getCurrentWeatherByName();
     this.getLocation();
-    this.dataIsAvailable = true;
   }
 
   async getCurrentWeatherByName() {
     await this.weatherService.getCurrentWeather("maribor").subscribe(
       res => { 
-        console.log(res);
+        //console.log(res);
         this.currentWeather = {
           "city": res['name'],
           "date": new Date,
@@ -48,7 +46,17 @@ export class HomeComponent implements OnInit {
           "clouds": res['clouds']['all'],
           "wind": res['wind']['speed']
         };
-        localStorage.setItem('currentWeather',JSON.stringify(this.currentWeather));
+        this.weatherByName = JSON.parse(localStorage.getItem('weatherByName'));
+        if(this.weatherByName == null || this.weatherByName == undefined){
+          this.weatherByName = {
+            "currentWeather": this.currentWeather
+          }
+        }
+        else {
+          this.weatherByName.currentWeather = this.currentWeather;
+        }
+        localStorage.setItem('weatherByName',JSON.stringify(this.weatherByName));
+        
       },
       err => { console.log(err) }
     )
@@ -56,27 +64,35 @@ export class HomeComponent implements OnInit {
   async getWeatherByLocation(lon: any, lat: any) {
     await this.weatherService.getWeatherByLocation(lon,lat).subscribe(
       res => { 
-        console.log(res);
-        this.forecast = [];
-        this.iconsForecast = [];
-        this.forecastDates = [];
+        //console.log(res);
+        var forecast = [];
+        var iconsForecast = [];
+        var forecastDates = [];
         for(var i = 0;i < 5;i++){
-          this.forecast.push(res['daily'][i]);
-          this.iconsForecast.push(res['daily'][i]['weather'][0]['icon']);
+          forecast.push(res['daily'][i]);
+          iconsForecast.push(res['daily'][i]['weather'][0]['icon']);
           let date= new Date();
-          this.forecastDates.push(date.setDate(date.getDate() + 1+ i));
+          forecastDates.push(date.setDate(date.getDate() + 1+ i));
         }
         //this.dataIsAvailable = true;
-        localStorage.setItem('forecast',JSON.stringify(this.forecast));
-        localStorage.setItem('iconsForecast',JSON.stringify(this.iconsForecast));
+        //localStorage.setItem('forecast',JSON.stringify(this.forecast));
+        //localStorage.setItem('iconsForecast',JSON.stringify(this.iconsForecast));
+        this.weatherByName = {
+          "currentWeather": this.currentWeather,
+          "forecast": forecast,
+          "iconsForecast": iconsForecast,
+          "forecastDates": forecastDates
+        };
+        localStorage.setItem('weatherByName',JSON.stringify(this.weatherByName));
+        this.dataIsAvailable = true;
       },
       err => { console.log(err) }
     )
   }
 
   async getLocation() {
-    await this.locationService.getPosition().then(pos => {
-      this.getWeatherByLocation(pos.lon,pos.lat);
+    await this.locationService.getPosition().then(async pos => {
+      await this.getWeatherByLocation(pos.lon,pos.lat);
       this.lat = pos.lat;
       this.lon = pos.lon;
     })
@@ -84,7 +100,6 @@ export class HomeComponent implements OnInit {
 
   async Refresh() {
     await this.getCurrentWeatherByName();
-    this.forecast = [];
     await this.getWeatherByLocation(this.lon,this.lat);
   }
 }
