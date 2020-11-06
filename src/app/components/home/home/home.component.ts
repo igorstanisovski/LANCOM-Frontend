@@ -57,6 +57,9 @@ export class HomeComponent implements OnInit {
     await this.weatherService.getWeatherByLocation(lon,lat).subscribe(
       res => { 
         console.log(res);
+        this.forecast = [];
+        this.iconsForecast = [];
+        this.forecastDates = [];
         for(var i = 0;i < 5;i++){
           this.forecast.push(res['daily'][i]);
           this.iconsForecast.push(res['daily'][i]['weather'][0]['icon']);
