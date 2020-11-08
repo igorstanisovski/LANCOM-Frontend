@@ -1,27 +1,31 @@
-# Weather
+# Weather Info
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
 
-## Development server
+## Introduction
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Open Weather Info API for location by given name and for current location.
 
-## Code scaffolding
+## Functionalities
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Current weather for location by name
+- Forecast for location by name
+- Current weather for current location
+- Forecast for current location
+- Available in Slovenian language
+- Responsive design
 
-## Build
+## IDE, tools and requirements
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- Visual Studio Code
+- Angular 9
+- NodeJS
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Clone the project
+- Open project terminal and write the following:
+ ```
+    npm install
+ ```
+- Starting project in English ``` ng serve ```
+- Starting project in Slovenian ``` ng serve --configuration=sl```
